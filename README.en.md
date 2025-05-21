@@ -15,8 +15,6 @@
 - **Code Generation**: Generates corresponding management pages based on entity classes.
 - **Multi - Database Support**: Supports multiple databases.
 
-![pay](https://gitee.com/gudufy/EasyAdminBlazor/raw/master/images/pay.jpg)
-
 ## II. Operation Instructions
 ### Operating Environment
 - **.NET SDK**: 9.0

@@ -15,8 +15,6 @@
 - **代码生成**：根据实体类生成对应管理页面。
 - **多数据库**：支持多种数据库。
 
-![pay](https://gitee.com/gudufy/EasyAdminBlazor/raw/master/images/pay.jpg)
-
 ## 二、运行说明
 ### 运行环境
 - **.NET SDK**：9.0
