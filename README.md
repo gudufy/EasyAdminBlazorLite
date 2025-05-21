@@ -2,7 +2,7 @@
 
 ## 一、项目概述
 ### 项目简介
-`EasyAdminBlazor` 是一个基于 .NET 9.0 的项目，用于开发管理后台相关功能。此项目运用 `BootstrapBlazor` 组件库搭建用户界面，借助 `FreeSql` 进行数据访问操作，前台使用Razor pages，可快速完成中小型项目，个人接单利器。
+`EasyAdminBlazor` 是一个基于 .NET 9.0 的项目，用于开发管理后台相关功能。此项目运用 `BootstrapBlazor` 组件库搭建用户界面，借助 `FreeSql` 进行数据访问操作，本项目借鉴了AdminBlazor底层代码，前端全面使用BootstrapBlazor，前台使用Razor pages，可快速完成中小型项目，个人接单利器。
 
 ### 主要功能
 - **用户管理**：包括用户信息的增删改查、导出。
