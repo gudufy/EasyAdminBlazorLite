@@ -15,9 +15,6 @@
 - **代码生成**：根据实体类生成对应管理页面。
 - **多数据库**：支持多种数据库。
 
-### 未来展望
-- **多租户**：支持多租户。
-
 ![pay](https://gitee.com/gudufy/EasyAdminBlazor/raw/master/images/pay.jpg)
 
 ## 二、运行说明

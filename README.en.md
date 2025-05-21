@@ -15,9 +15,6 @@
 - **Code Generation**: Generates corresponding management pages based on entity classes.
 - **Multi - Database Support**: Supports multiple databases.
 
-### Future Prospects
-- **Multi - Tenant Support**: Support for multi - tenant functionality.
-
 ![pay](https://gitee.com/gudufy/EasyAdminBlazor/raw/master/images/pay.jpg)
 
 ## II. Operation Instructions
