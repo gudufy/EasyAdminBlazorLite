@@ -1,0 +1,30 @@
+﻿{
+  "EasyAdminBlazor.Common": {
+    "Import": "Import"
+  },
+  "EasyAdminBlazor.SysUser": {
+    "Username": "Username",
+    "Nickname": "Nickname",
+    "Mobile": "Mobile",
+    "Email": "Email",
+    "Password": "Password",
+    "IsEnabled": "Enabled",
+    "OrgId": "Team",
+    "Description": "Description",
+    "LoginTime": "Last login time",
+    "Roles": "Roles",
+    "RoleIds": "Roles",
+    "CreatedTime": "Created time",
+    "CreatedUserName": "Created user",
+    "ModifiedTime": "Modified time",
+    "ModifiedUserName": "Modified user"
+  },
+  "EasyAdminBlazor.Server.Data.EnumEducation": {
+    "PlaceHolder": "Click to select ...",
+    "Primary": "Primary",
+    "Middle": "Middle"
+  },
+  "EasyAdminBlazor.Components.CultureChooser": {
+    "Label": "Languages: "
+  }
+}

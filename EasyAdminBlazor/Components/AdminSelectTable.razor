@@ -1,0 +1,59 @@
+﻿@inherits ValidateBase<TItem>
+@typeparam TItem where TItem : class, IEntity<long>, new()
+
+<CascadingValue Value="this" IsFixed="true">
+    @TableColumns?.Invoke(new TItem())
+</CascadingValue>
+<RenderTemplate>
+    @if (IsShowLabel)
+    {
+        <BootstrapLabel required="@Required" for="@Id" ShowLabelTooltip="ShowLabelTooltip" Value="@DisplayText" />
+    }
+    <div @attributes="@AdditionalAttributes" id="@Id" class="@ClassString" tabindex="0" hidefocus="true">
+        <SelectTable TableColumns="TableColumns" TItem="TItem" @bind-Value="Value" ShowLabel="false" IsPagination="true"
+                     OnQueryAsync="OnQueryAsync" GetTextCallback="@GetText" OnValueChanged="OnSelectedItemChangedInternal"
+                     TableMinWidth="300" IsClearable>
+            <Template>
+                @GetText(context)
+            </Template>
+        </SelectTable>
+    </div>
+</RenderTemplate>
+@code {
+    private string? ClassString => CssBuilder.Default()
+        .AddClass("form-item")
+        .AddClass(CssClass).AddClass(ValidCss)
+        .Build();
+
+    /// <summary>
+    /// 获得/设置 TableHeader 实例
+    /// </summary>
+    [Parameter]
+    public RenderFragment<TItem>? TableColumns { get; set; }
+
+    [Parameter]
+    public Func<TItem, string> GetText { get; set; } = default!;
+
+    /// <summary>
+    /// 使用数据权限，如果开启则实体必须实现IDataPermission, IEntityCreated接口
+    /// </summary>
+    [Parameter]
+    public bool UseDataPermission { get; set; }
+
+    [Inject] IAggregateRootRepository<TItem> _repo { get; set; }
+
+    private async Task<QueryData<TItem>> OnQueryAsync(QueryPageOptions options)
+    {
+        return await _repo.Select.GetPagedAsync(options);
+    }
+
+    private async Task OnSelectedItemChangedInternal(TItem? item)
+    {
+        Value = item;
+        if (ValueChanged.HasDelegate)
+        {
+            await ValueChanged.InvokeAsync(Value);
+        }
+        StateHasChanged(); 
+    }
+}

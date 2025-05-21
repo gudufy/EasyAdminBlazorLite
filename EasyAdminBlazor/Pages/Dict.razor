@@ -1,0 +1,80 @@
+﻿@page "/Admin/Dict"
+
+<Split Basis="45%" ShowBarHandle="false" IsCollapsible>
+    <FirstPaneTemplate>
+        <AdminTable TItem="SysDict" EditDialogSize="Size.Large" ShowExtendButtons
+                    OnBeforeQuery="OnBeforeQuery" OnClickRowCallback="OnClickRowCallback" style="margin-right:15px;">
+            <TableColumns>
+                <TableColumn @bind-Field="context.Name" />
+                <TableColumn @bind-Field="context.Description" />
+            </TableColumns>
+        </AdminTable>
+    </FirstPaneTemplate>
+    <SecondPaneTemplate>
+        @if (selectedCategory != null)
+        {
+            <AdminTable TItem="SysDict" EditDialogSize="Size.Large" ShowExtendButtons IsMultipleSelect OnQueryAsync="OnQueryItemAsync" OnBeforeSaveAsync="OnBeforeSaveAsync">
+                <TableColumns>
+                    <TableColumn @bind-Field="context.Name" />
+                    <TableColumn @bind-Field="context.Value" />
+                    <TableColumn @bind-Field="context.Description" Rows="3" />
+                </TableColumns>
+            </AdminTable>
+        }
+        else
+        {
+            <div class="alert alert-info" role="alert">
+                请选择一个字典分类查看字典项。
+            </div>
+        }
+    </SecondPaneTemplate>
+</Split>
+
+@code {
+    [Inject] IAggregateRootRepository<SysDict> _repo { get; set; }
+
+    private SysDict selectedCategory;
+
+    /// <summary>
+    /// 在查询前过滤条件，只查询父ID为0的字典分类
+    /// </summary>
+    private void OnBeforeQuery(AdminQueryEventArgs<SysDict> e) => e.Select.Where(x => x.ParentId == 0);
+
+    /// <summary>
+    /// 异步查询字典项数据
+    /// </summary>
+    /// <param name="options">分页查询选项</param>
+    /// <returns>包含字典项列表和总数的查询结果</returns>
+    private async Task<QueryData<SysDict>> OnQueryItemAsync(QueryPageOptions options)
+    {
+        var items = await _repo.Select
+                .Where(x => x.ParentId == selectedCategory.Id)
+                .WhereDynamicFilter(options.ToDynamicFilter())
+                .OrderBy(a => a.Id)
+                .ToListAsync();
+
+        return new QueryData<SysDict>
+        {
+            Items = items,
+            TotalCount = items.Count
+        };
+    }
+
+    /// <summary>
+    /// 在保存字典项前设置父ID
+    /// </summary>
+    /// <param name="e">保存事件参数</param>
+    private Task OnBeforeSaveAsync(AdminSaveEventArgs<SysDict> e) {
+        if(e.ChangedType == ItemChangedType.Add) e.Item.ParentId = selectedCategory.Id;
+        return Task.CompletedTask;
+    }
+
+    /// <summary>
+    /// 处理表格行点击事件，设置当前选中分类并刷新UI
+    /// </summary>
+    /// <param name="row">点击的字典分类行</param>
+    private async Task OnClickRowCallback(SysDict row) {
+        selectedCategory = row;
+        await InvokeAsync(StateHasChanged);
+    }
+}
