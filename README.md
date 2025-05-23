@@ -1,6 +1,6 @@
 # EasyAdminBlazor 
 
-本仓库为gitee的备份仓库，最新代码请访问：[gitee]([https://freesql.net/](https://gitee.com/gudufy/EasyAdminBlazor))
+本仓库为gitee的备份仓库，最新代码请访问：[gitee](https://gitee.com/gudufy/EasyAdminBlazor)
 
 ## 一、项目概述
 ### 项目简介
